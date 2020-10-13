@@ -5,8 +5,8 @@ import Slide from './Slide'
 const MainSlider = () => {
 
   const [slides, setSlides] = useState([])
-  const [load, setLoad] = useState(false)
-  const [error, setError] = useState('')
+  // const [load, setLoad] = useState(false)
+  // const [error, setError] = useState('')
 
   useEffect(() => {
     loadData()
@@ -15,11 +15,12 @@ const MainSlider = () => {
   const loadData = async () => {
     const response = await axios({
       method: 'GET',
-      baseURL: process.env.REACT_APP_SERVER_URL,
+      baseURL: 'https://sheltered-beyond-22922.herokuapp.com',
+      // baseURL: process.env.REACT_APP_SERVER_URL,
       url: '/sliders'
     })
     setSlides(response.data)
-    setLoad(true)
+    // setLoad(true)
   }
 
   
@@ -29,9 +30,13 @@ const MainSlider = () => {
     <section className="intro_section page_mainslider ds all-scr-cover bottom-overlap-teasers">
       <div className="flexslider" data-dots="true" data-nav="true">
         <ul className="slides">
-        <Slide primero="primero" />
-        <Slide primero="segundo" />
-        <Slide primero="tercero" />
+        
+          {slides.map((slide)=> {
+            return(
+              <Slide key={slide.id} primero={slide.text1} />        
+            )
+          })}
+        
         </ul>
       </div>
     </section>
